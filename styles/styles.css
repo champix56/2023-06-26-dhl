@@ -1,0 +1,40 @@
+/*Section du header name*/
+#header-name{
+    color: tomato;
+    font-weight: 900;
+    font-size:32pt;
+    text-shadow: 10px 20px 25px grey;
+    text-decoration: underline grey;
+    padding-left : 10px;
+}
+#dot{
+    color: black;
+}
+#js{
+    color: skyblue;
+    font-style: italic;
+}
+/* section du footer */
+footer{
+    text-align:center;
+}
+/* section body */
+body{
+    height:100vh;
+    display:flex;
+    flex-direction: column;
+}
+article{
+    flex-grow:1;
+}
+/* section editor */
+#editor{
+    display: flex;
+}
+#editor>*:first-child{
+    flex-grow: 1;
+}
+#editor>*:first-child>*{
+    height: 100%;
+    width:100%
+}
