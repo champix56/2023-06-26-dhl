@@ -1,0 +1,11 @@
+{
+  "name": "2023-06-26-dhl",
+  "version": "1.0.0",
+  "description": "formation cfd dhl",
+  "scripts": {
+    "start": "npx lite-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
