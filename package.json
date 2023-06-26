@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "formation cfd dhl",
   "scripts": {
-    "start": "npx lite-server"
+    "start": "lite-server"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  }
 }
