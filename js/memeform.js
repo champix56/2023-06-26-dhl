@@ -13,18 +13,24 @@ function initMemeEditor() {
     currentMeme.text = evt.target.value;
   });
   form["x"].addEventListener("input", function (evt) {
-    currentMeme.x = evt.target.value;
+    currentMeme.x = Number(evt.target.value);
   });
   form["y"].addEventListener("input", function (evt) {
-    currentMeme.y = evt.target.value;
+    currentMeme.y =Number(evt.target.value);
   });
   form["color"].addEventListener("input", function (evt) {
     currentMeme.color = evt.target.value;
   });
   form["fontSize"].addEventListener("input", function (evt) {
-    currentMeme.fontSize = evt.target.value;
+    currentMeme.fontSize = Number(evt.target.value);
   });
   form["fontWeight"].addEventListener("input", function (evt) {
     currentMeme.fontWeight = evt.target.value;
+  });
+  form["underline"].addEventListener("input", function (evt) {
+    currentMeme.underline = evt.target.checked;
+  });
+  form["italic"].addEventListener("input", function (evt) {
+    currentMeme.italic = evt.target.checked;
   });
 }
