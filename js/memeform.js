@@ -1,5 +1,5 @@
 import Meme from "./Meme.js";
-import { images } from "./values.js";
+import ressources from "./values.js";
 let currentMeme = new Meme();
 //console.log(currentMeme);
 export function initMemeEditor() {
@@ -45,7 +45,10 @@ export function initMemeEditor() {
     renderMeme();
   });
   initFormValueFromCurrent();
-  loadSelectImages(images);
+  if(ressources.images.length>0){
+  loadSelectImages(ressources.images);}
+  else {
+    ressources.loadRessources((ress)=>{loadSelectImages(ress.images)})}
   renderMeme();
 }
 /**
@@ -71,7 +74,7 @@ function renderMeme(meme) {
   let svg = document.querySelector("#editor-viewer svg");
   let textElement = svg.querySelector("text");
   let imgElement = svg.querySelector("image");
-  let img = images.find(function (img) {
+  let img = ressources.images.find(function (img) {
     return img.id === meme.imageId;
   });
   if (undefined !== img) {
