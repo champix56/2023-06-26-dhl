@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/styles/styles.css" />
     <!-- com. -->
     <script src="/js/Meme.js"></script>
+    <script src="/js/memeform.js"></script>
     <script src="/js/index.js"></script>
   </head>
   <body>
@@ -131,7 +132,54 @@
                 <label for="meme-y">y</label><br />
                 <input type="number" name="y" id="meme-y" />
               </div>
-              <hr />
+            </div>
+            <hr />
+            <h2>Decorations</h2>
+            <label for="meme-color">Couleur</label><br />
+            <input type="color" name="color" id="meme-color" />
+            <h3>font</h3>
+            <div class="flex-col">
+              <div>
+                <label for="meme-fontSize">taille</label><br />
+                <input type="number" name="fontSize" id="meme-fontSize" />
+              </div>
+              <div>
+                <label for="meme-fontSize">poids</label><br />
+                <input
+                  type="number"
+                  name="fontWeight"
+                  id="meme-fontWeight"
+                  min="100"
+                  max="900"
+                  step="100"
+                />
+              </div>
+            </div>
+            <div class="flex-col">
+              <div>
+                <label for="meme-italic">italic</label>
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="meme-italic"
+                    name="italic"
+                  />
+                </div>
+              </div>
+              <div>
+                <label for="meme-underline">underline</label>
+                <div class="form-check form-switch">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    role="switch"
+                    id="meme-underline"
+                    name="underline"
+                  />
+                </div>
+              </div>
             </div>
             <hr />
             <div class="center">
