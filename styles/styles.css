@@ -38,10 +38,12 @@ body.dark{
 }
 article{
     flex-grow:1;
+    height:calc(100vh - 250px)
 }
 /* section editor */
 #editor{
     display: flex;
+    height: calc(100vh - 200px);
 }
 #editor>*:first-child{
     flex-grow: 1;
@@ -52,6 +54,8 @@ article{
 }
 #editor-form{
     text-align: center;
+  height: 100%;
+    overflow-y:scroll ;
 }
 .flex-col{
     display: flex;
