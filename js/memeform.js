@@ -34,7 +34,6 @@ export function initMemeEditor() {
   });
   form["fontWeight"].addEventListener("input", function (evt) {
     currentMeme.fontWeight = evt.target.value;
-    loadSelectImages();
     renderMeme();
   });
   form["underline"].addEventListener("input", function (evt) {
