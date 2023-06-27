@@ -13,7 +13,25 @@ function init() {
   footer.style.fontWeight = "900";
   footer.style.textDecoration = "underline";
 }
-
+/**
+ * changement d'etat de theme
+ * @param {boolean} isDark etat du choix de theme dark/clear
+ */
+function changeTheme(isDark) {
+  var nav = document.getElementsByTagName("nav")[0];
+  var slider = document.getElementById("theme-swith");
+  if (isDark) {
+    document.body.className = "dark";
+    nav.classList.replace("navbar-light", "navbar-dark");
+    nav.classList.replace("bg-light", "bg-dark");
+    slider.checked = true;
+  } else {
+    document.body.className = "";
+    nav.classList.replace("navbar-dark", "navbar-light");
+    nav.classList.replace("bg-dark", "bg-light");
+    slider.checked = false;
+  }
+}
 document.addEventListener("DOMContentLoaded", function (evt) {
   console.log(evt);
   init();
