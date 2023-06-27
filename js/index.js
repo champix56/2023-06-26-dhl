@@ -1,4 +1,5 @@
 import { initMemeEditor } from './memeform.js'
+import handleRoute from './router.js';
 /**
  * fonction d'initialisation
  * @returns {undefined} aucun retour
@@ -10,9 +11,8 @@ function init() {
     .addEventListener("change", function (evt) {
         changeTheme(evt.target.checked)
     });
+    handleRoute('/editor')
 
-
-    initMemeEditor()
 
   var currentDate = new Date();
   console.log(currentDate.toISOString());
