@@ -19,6 +19,9 @@ header{
     color: skyblue;
     font-style: italic;
 }
+#theme{
+    text-align: center;
+}
 /* section du footer */
 footer{
     text-align:center;
