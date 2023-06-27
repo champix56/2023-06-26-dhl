@@ -6,50 +6,53 @@ export function initMemeEditor() {
   let form = document.forms["meme-form"];
   form["titre"].addEventListener("input", function (evt) {
     currentMeme.titre = evt.target.value;
-    // renderMeme();
+    // renderMeme(currentMeme,'#editor-viewer');
   });
   form["imageId"].addEventListener("change", function (evt) {
     currentMeme.imageId = Number(evt.target.value);
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["text"].addEventListener("input", function (evt) {
     currentMeme.text = evt.target.value;
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["x"].addEventListener("input", function (evt) {
     currentMeme.x = Number(evt.target.value);
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["y"].addEventListener("input", function (evt) {
     currentMeme.y = Number(evt.target.value);
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["color"].addEventListener("input", function (evt) {
     currentMeme.color = evt.target.value;
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["fontSize"].addEventListener("input", function (evt) {
     currentMeme.fontSize = Number(evt.target.value);
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["fontWeight"].addEventListener("input", function (evt) {
     currentMeme.fontWeight = evt.target.value;
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["underline"].addEventListener("input", function (evt) {
     currentMeme.underline = evt.target.checked;
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   form["italic"].addEventListener("input", function (evt) {
     currentMeme.italic = evt.target.checked;
-    renderMeme();
+    ressources.renderMeme(currentMeme,'#editor-viewer');
   });
   initFormValueFromCurrent();
-  if(ressources.images.length>0){
-  loadSelectImages(ressources.images);}
-  else {
-    ressources.loadRessources((ress)=>{loadSelectImages(ress.images)})}
-  renderMeme();
+  if (ressources.images.length > 0) {
+    loadSelectImages(ressources.images);
+  } else {
+    ressources.loadRessources((ress) => {
+      loadSelectImages(ress.images);
+    });
+  }
+  ressources.renderMeme(currentMeme,"#editor-viewer");
 }
 /**
  * init values form current meme to form
@@ -66,35 +69,6 @@ function initFormValueFromCurrent() {
   form["fontWeight"].value = currentMeme.fontWeight;
   form["underline"].checked = currentMeme.underline;
   form["italic"].checked = currentMeme.italic;
-}
-function renderMeme(meme) {
-  if (undefined === meme) {
-    meme = currentMeme;
-  }
-  let svg = document.querySelector("#editor-viewer svg");
-  let textElement = svg.querySelector("text");
-  let imgElement = svg.querySelector("image");
-  let img = ressources.images.find(function (img) {
-    return img.id === meme.imageId;
-  });
-  if (undefined !== img) {
-    imgElement.setAttribute("xlink:href", img.url);
-    imgElement.style.display = "block";
-    svg.setAttribute("viewBox", `0 0 ${img.w} ${img.h}`);
-  } else {
-    imgElement.setAttribute("xlink:href", "");
-    imgElement.style.display = "none";
-    svg.setAttribute("viewBox", `0 0 500 500`);
-  }
-  textElement.innerHTML = meme.text;
-  textElement.style.fill = meme.color;
-  textElement.style.textDecoration = meme.underline ? "underline" : "none";
-  //textElement.style.fontStyle = meme.italic ? "italic" : "normal";
-  textElement.setAttribute("font-style", meme.italic ? "italic" : "normal");
-  textElement.setAttribute("font-weight", meme.fontWeight);
-  textElement.setAttribute("font-size", meme.fontSize);
-  textElement.setAttribute("x", meme.x);
-  textElement.setAttribute("y", meme.y);
 }
 function loadSelectImages(images) {
   let select = document.forms["meme-form"]["imageId"];
