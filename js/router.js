@@ -126,4 +126,11 @@ export const initNavbarLink = (navBarSelector) => {
     });
   });
 };
+
+
+//gestion des precedent et suivant sur l'historique
+window.addEventListener('popstate',(evt)=>{
+  handleRoute();
+  console.log('pop',evt)
+})
 export default handleRoute;
