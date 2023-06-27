@@ -8,7 +8,7 @@ function initMemeEditor() {
   });
 
   form["imageId"].addEventListener("change", function (evt) {
-    currentMeme.imageId = evt.target.value;
+    currentMeme.imageId = Number(evt.target.value);
     renderMeme();
   });
   form["text"].addEventListener("input", function (evt) {
@@ -59,4 +59,24 @@ function renderMeme(meme) {
   textElement.setAttribute("font-size", meme.fontSize);
   textElement.setAttribute("x", meme.x);
   textElement.setAttribute("y", meme.y);
+}
+function loadSelectImages(images) {
+  var select = document.forms["meme-form"]["imageId"];
+  //vidange du select
+  var children0 = select.children[0].cloneNode(true);
+  select.innerHTML = "";
+
+  var optBase = document.createElement("option");
+  optBase.value = "erty";
+  optBase.innerHTML = "text visuel";
+  select.appendChild(optBase);
+  // for(var i=0;i<images.length;i++){
+  //     console.log(images[i]);
+  // }
+  images.forEach(function (img) {
+    var opt = optBase.cloneNode(true);
+    opt.value = img.id;
+    opt.innerHTML = img.titre;
+    select.appendChild(opt);
+  });
 }
