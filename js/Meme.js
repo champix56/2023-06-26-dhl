@@ -10,5 +10,3 @@ function Meme() {
     this.italic=false;
     this.color='#000000'
 }
-var currentMeme = new Meme();
-console.log(currentMeme);
