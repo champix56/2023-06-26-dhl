@@ -13,7 +13,10 @@ function init() {
 
   handleRoute();
   initNavbarLink("nav");
-
+const isDarkOnLoad=loadThemeToLocalStorage()
+  if(isDarkOnLoad!==undefined){
+    changeTheme(isDarkOnLoad)
+  }
   var currentDate = new Date();
   console.log(currentDate.toISOString());
   var footer = document.getElementsByTagName("footer")[0];
@@ -45,6 +48,13 @@ function changeTheme(isDark) {
     slider.checked = false;
     lbl.innerHTML = "clear";
   }
+  saveThemeToLocalStorage(isDark);
+}
+function saveThemeToLocalStorage(isDark){
+  localStorage.setItem('darkTheme',isDark)
+}
+function loadThemeToLocalStorage(){
+  return localStorage.getItem('darkTheme')
 }
 document.addEventListener("DOMContentLoaded", function (evt) {
   console.log(evt);
