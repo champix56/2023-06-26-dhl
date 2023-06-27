@@ -77,6 +77,12 @@ function renderMeme(meme) {
   });
   if (undefined !== img) {
     imgElement.setAttribute("xlink:href", img.url);
+    imgElement.style.display = "block";
+    svg.setAttribute("viewBox", `0 0 ${img.w} ${img.h}`);
+  } else {
+    imgElement.setAttribute("xlink:href", "");
+    imgElement.style.display = "none";
+    svg.setAttribute("viewBox", `0 0 500 500`);
   }
   textElement.innerHTML = meme.text;
   textElement.style.fill = meme.color;
@@ -91,13 +97,12 @@ function renderMeme(meme) {
 function loadSelectImages(images) {
   let select = document.forms["meme-form"]["imageId"];
   //vidange du select
-  let children0 = select.children[0].cloneNode(true);
+  let childrenNoImage = select.children[0].cloneNode(true);
   select.innerHTML = "";
+  select.appendChild(childrenNoImage);
 
   let optBase = document.createElement("option");
-  optBase.value = "erty";
-  optBase.innerHTML = "text visuel";
-  select.appendChild(optBase);
+
   // for(let i=0;i<images.length;i++){
   //     console.log(images[i]);
   // }
