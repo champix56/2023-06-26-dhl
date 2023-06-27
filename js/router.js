@@ -99,4 +99,13 @@ const handleErrorRoute=(route,statusCode, statusText)=>{
     document.querySelector('#error h2 span').innerHTML=statusCode;
     document.querySelector('#error h3 span').innerHTML=statusText;
 }
+export const initNavbarLink=(navBarSelector)=>{
+    document.querySelectorAll(navBarSelector+' a').forEach(el=>{
+        el.addEventListener('click',(evt)=>{
+            evt.preventDefault();
+            history.pushState(null,null,evt.target.href);
+            handleRoute();
+        })
+    })
+}
 export default handleRoute

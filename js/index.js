@@ -1,5 +1,5 @@
 import { initMemeEditor } from './memeform.js'
-import handleRoute from './router.js';
+import handleRoute, { initNavbarLink } from './router.js';
 /**
  * fonction d'initialisation
  * @returns {undefined} aucun retour
@@ -11,8 +11,9 @@ function init() {
     .addEventListener("change", function (evt) {
         changeTheme(evt.target.checked)
     });
-    handleRoute('/editor')
 
+    handleRoute();
+    initNavbarLink('nav')
 
   var currentDate = new Date();
   console.log(currentDate.toISOString());
