@@ -6,7 +6,6 @@ function initMemeEditor() {
     currentMeme.titre = evt.target.value;
     // renderMeme();
   });
-
   form["imageId"].addEventListener("change", function (evt) {
     currentMeme.imageId = Number(evt.target.value);
     renderMeme();
@@ -43,6 +42,24 @@ function initMemeEditor() {
     currentMeme.italic = evt.target.checked;
     renderMeme();
   });
+  initFormValueFromCurrent();
+  renderMeme();
+}
+/**
+ * init values form current meme to form
+ */
+function initFormValueFromCurrent() {
+  var form = document.forms["meme-form"];
+  form["titre"].value = currentMeme.titre;
+  form["imageId"].value = currentMeme.imageId;
+  form["text"].value = currentMeme.titre;
+  form["x"].value = currentMeme.x;
+  form["y"].value = currentMeme.y;
+  form["color"].value = currentMeme.color;
+  form["fontSize"].value = currentMeme.fontSize;
+  form["fontWeight"].value = currentMeme.fontWeight;
+  form["underline"].checked = currentMeme.underline;
+  form["italic"].checked = currentMeme.italic;
 }
 function renderMeme(meme) {
   if (undefined === meme) {
@@ -51,10 +68,12 @@ function renderMeme(meme) {
   var svg = document.querySelector("#editor-viewer svg");
   var textElement = svg.querySelector("text");
   var imgElement = svg.querySelector("image");
-  var img=images.find(function(img){return img.id===meme.imageId})
-  ;
-  imgElement.setAttribute("xlink:href", img.url);
-
+  var img = images.find(function (img) {
+    return img.id === meme.imageId;
+  });
+  if (undefined !== img) {
+    imgElement.setAttribute("xlink:href", img.url);
+  }
   textElement.innerHTML = meme.text;
   textElement.style.fill = meme.color;
   textElement.style.textDecoration = meme.underline ? "underline" : "none";
