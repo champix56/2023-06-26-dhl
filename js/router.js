@@ -19,17 +19,15 @@ const routesConfig = {
         htmlTemplateUrl: "/vues/home.html",
       },
   ],
-  fallbackRoute:[
-    {htmlTemplateUrl: "/vues/error.html",}
-]
+  fallbackRoute:{htmlTemplateUrl: "/vues/error.html",}
 };
 /**
- * fonction de gestion de la route courrante passé en parametre commence par /
- * @param {string} routeName 
+ * fonction de gestion de la route courrante passé en parametre
  */
-const handleRoute = (routeName) => {
+const handleRoute = () => {
+    const currentPath=location.pathname
     //avec array.find
-    let routeFound=routesConfig.routes.find(route=>route.path===routeName)    
+    let routeFound=routesConfig.routes.find(route=>route.path===currentPath)    
 
     //  -----------------------------
     //avec boucle old school 
@@ -47,7 +45,7 @@ const handleRoute = (routeName) => {
     //     }
     //   } while (routeFound===-1 && routeIndex<routesConfig.routes.length );
   if(undefined!==routeFound){routeTemplateLoader(routeFound,handleNormalRoute)}
-  else {routeTemplateLoader(routeFound,(route)=>{handleErrorRoute(route,404)})}
+  else {routeTemplateLoader(routesConfig.fallbackRoute,(route)=>{handleErrorRoute(route,404)})}
 };
 /**
  * lazy loader de template (chargement a la demande)
