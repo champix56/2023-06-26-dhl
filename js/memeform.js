@@ -5,6 +5,17 @@ let currentMeme = new Meme();
 //console.log(currentMeme);
 export function initMemeEditor() {
   let form = document.forms["meme-form"];
+  form.addEventListener('submit',(evt)=>{
+    evt.preventDefault();
+    ressources.saveMeme(currentMeme,(savedMeme)=>{
+        currentMeme=savedMeme;
+        ressources.renderMeme(savedMeme,'#editor-viewer')
+        initFormValueFromCurrent();
+        
+        history.pushState(null,null,'/editor/'+savedMeme.id)
+
+    })
+  })
   form["titre"].addEventListener("input", function (evt) {
     currentMeme.titre = evt.target.value;
     // renderMeme(currentMeme,'#editor-viewer');

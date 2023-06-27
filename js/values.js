@@ -1,3 +1,4 @@
+import Meme from './Meme.js'
 import {REST_ADR, ressourcesPath} from './constantes.js'
 class Ressources{
     images
@@ -13,7 +14,7 @@ class Ressources{
             this.images.splice(0);
             this.images=dataArray[0];
             this.memes.splice(0);
-            this.memes=dataArray[1];
+            this.memes.push(...dataArray[1]);
             if(undefined !==callback)callback(this);
         })
     }
@@ -50,7 +51,22 @@ class Ressources{
     textElement.setAttribute("x", meme.x);
     textElement.setAttribute("y", meme.y);
   }
-  
+  updateListOnSaveMeme=(meme)=>{
+    const position=this.memes.findIndex(m=>m.id===meme.id)
+    if(position===-1){
+      //nouveau meme (id nom deja present)
+      this.memes.push(meme)
+    }
+    else{
+      this.memes[position]=meme;
+    }
+  }
+  saveMeme(meme,callback){
+    //si le meme est nouveau
+    const memeToSave=Object.assign(new Meme(),meme);
+    memeToSave.save(this.updateListOnSaveMeme);
+    callback(meme);
+  }
 }
 const ressources=new Ressources();
 ressources.loadRessources();

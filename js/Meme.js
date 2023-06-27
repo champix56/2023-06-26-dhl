@@ -1,3 +1,5 @@
+import { REST_ADR, ressourcesPath } from "./constantes.js";
+
 export default function Meme() {
     this.titre='';
     this.text='';
@@ -9,4 +11,12 @@ export default function Meme() {
     this.underline=false;
     this.italic=false;
     this.color='#000000'
+    this.save=(callback)=>{
+        fetch(`${REST_ADR}${ressourcesPath.memes}/${undefined!==this.id?this.id:''}`,
+        {
+            method:undefined!==this.id?'PUT':'POST',
+            headers:{"Content-Type":'application/json'},
+            body:JSON.stringify(this)
+        }).then(resp=>resp.json()).then(m=>callback(m))
+    }
 }
