@@ -1,4 +1,5 @@
 import Meme from "./Meme.js";
+import handleRoute, { currentRoute } from "./router.js";
 import ressources from "./values.js";
 let currentMeme = new Meme();
 //console.log(currentMeme);
@@ -10,39 +11,39 @@ export function initMemeEditor() {
   });
   form["imageId"].addEventListener("change", function (evt) {
     currentMeme.imageId = Number(evt.target.value);
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["text"].addEventListener("input", function (evt) {
     currentMeme.text = evt.target.value;
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["x"].addEventListener("input", function (evt) {
     currentMeme.x = Number(evt.target.value);
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["y"].addEventListener("input", function (evt) {
     currentMeme.y = Number(evt.target.value);
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["color"].addEventListener("input", function (evt) {
     currentMeme.color = evt.target.value;
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["fontSize"].addEventListener("input", function (evt) {
     currentMeme.fontSize = Number(evt.target.value);
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["fontWeight"].addEventListener("input", function (evt) {
     currentMeme.fontWeight = evt.target.value;
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["underline"].addEventListener("input", function (evt) {
     currentMeme.underline = evt.target.checked;
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   form["italic"].addEventListener("input", function (evt) {
     currentMeme.italic = evt.target.checked;
-    ressources.renderMeme(currentMeme,'#editor-viewer');
+    ressources.renderMeme(currentMeme, "#editor-viewer");
   });
   initFormValueFromCurrent();
   if (ressources.images.length > 0) {
@@ -50,9 +51,10 @@ export function initMemeEditor() {
   } else {
     ressources.loadRessources((ress) => {
       loadSelectImages(ress.images);
+      setCurrentMemeByid(Number(currentRoute.params.id));    
     });
   }
-  ressources.renderMeme(currentMeme,"#editor-viewer");
+  ressources.renderMeme(currentMeme, "#editor-viewer");
 }
 /**
  * init values form current meme to form
@@ -61,7 +63,7 @@ function initFormValueFromCurrent() {
   let form = document.forms["meme-form"];
   form["titre"].value = currentMeme.titre;
   form["imageId"].value = currentMeme.imageId;
-  form["text"].value = currentMeme.titre;
+  form["text"].value = currentMeme.text;
   form["x"].value = currentMeme.x;
   form["y"].value = currentMeme.y;
   form["color"].value = currentMeme.color;
@@ -89,3 +91,20 @@ function loadSelectImages(images) {
     select.appendChild(opt);
   });
 }
+/**
+ *
+ * @param {number} id
+ */
+export const setCurrentMemeByid = (id) => {
+  const found = ressources.memes.find((m) => {
+    return m.id === Number(id);
+  });
+  if (undefined !== found) {
+    currentMeme = found;
+  } else {
+    currentMeme = new Meme();
+  }
+  
+  initFormValueFromCurrent();
+  ressources.renderMeme(currentMeme, "#editor-viewer");
+};

@@ -1,4 +1,4 @@
-import { initMemeEditor } from "./memeform.js";
+import { initMemeEditor, setCurrentMemeByid } from "./memeform.js";
 import { initTumbnail } from "./thumbnail.js";
 const errorTemplateText =
   '\
@@ -16,9 +16,12 @@ const routesConfig = {
   routes: [
     {
       name: "editor",
-      path: "/editor",
+      path: /\/editor(\/(?<id>\d))?/,
       htmlTemplateUrl: "/vues/editor.html",
-      initFunction: initMemeEditor,
+      initFunction: ()=>{
+        setCurrentMemeByid(Number(currentRoute.params.id))
+        initMemeEditor()
+      },
     },
     {
       name: "Thumbnail",
@@ -40,16 +43,31 @@ const routesConfig = {
   ],
   fallbackRoute: { templateText: errorTemplateText },
 };
+export let currentRoute=routesConfig.fallbackRoute
 /**
  * fonction de gestion de la route courrante passé en parametre
  */
 const handleRoute = () => {
   const currentPath = location.pathname;
+ let  routeParams={}
   //avec array.find
   let routeFound = routesConfig.routes.find(
-    (route) => route.path === currentPath
+    (route) =>{ 
+      if(route.path instanceof RegExp)
+      {
+        let regExpResult=route.path.exec(currentPath) 
+        if(null!==regExpResult){
+          routeParams={...regExpResult.groups}
+          return true;
+        }
+        
+      }
+      else{
+        return route.path === currentPath
+      }
+    }
   );
-
+currentRoute=routeFound
   //  -----------------------------
   //avec boucle old school
   //  -----------------------------
@@ -66,6 +84,7 @@ const handleRoute = () => {
   //     }
   //   } while (routeFound===-1 && routeIndex<routesConfig.routes.length );
   if (undefined !== routeFound) {
+    routeFound.params=routeParams;
     routeTemplateLoader(routeFound, handleNormalRoute);
   } else {
     routeTemplateLoader(routesConfig.fallbackRoute, (route) => {
@@ -78,7 +97,7 @@ const handleRoute = () => {
  * @param {Route} routeFound objet de routeConfig.route de la route a loader et afficher 
 //  * @param {Function} callback ref. de fonction d'execution du chargement dans le DOM 
  */
-const routeTemplateLoader = (routeFound, callback, noContentMount) => {
+const routeTemplateLoader = (routeFound, callback) => {
   if (undefined !== routeFound.templateText) {
     //contenu de route deja present
     callback(routeFound);
@@ -132,5 +151,9 @@ export const initNavbarLink = (navBarSelector) => {
 window.addEventListener('popstate',(evt)=>{
   handleRoute();
   console.log('pop',evt)
+})
+window.addEventListener('pushstate',(evt)=>{
+  handleRoute();
+  console.log('push',evt)
 })
 export default handleRoute;
