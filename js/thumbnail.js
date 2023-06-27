@@ -1,3 +1,4 @@
+import handleRoute from './router.js';
 import ressources from './values.js'
 export function initTumbnail(){
    
@@ -15,7 +16,15 @@ const mountMemeInThumbnail=(ressourcesLoaded)=>{
     svgContainer.className='meme';
     const svgContainerA=document.createElement('a');
     const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('xmlns:xlink',"http://www.w3.org/1999/xlink");
+    svg.setAttribute('xmlns',"http://www.w3.org/2000/svg");
+    svg.setAttribute('height',"100%");
+    svg.setAttribute('width',"100%");
+    svg.setAttribute("version","1.1");
     const img=document.createElementNS('http://www.w3.org/2000/svg','image');
+    img.setAttribute("x",0);
+    img.setAttribute("y",0);
+    img.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href','')
     const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
     svg.appendChild(img);
     svg.appendChild(txt);
@@ -33,5 +42,10 @@ const mountMemeInThumbnail=(ressourcesLoaded)=>{
         svgCurrentContainer.id=currentContainerId
         thumbContainer.appendChild(svgCurrentContainer);
         ressources.renderMeme(meme,'#'+currentContainerId);
+        svgCurrentContainer.querySelector('a').addEventListener('click',(evt)=>{
+            evt.preventDefault();
+            history.pushState(null,null,'/editor/'+meme.id)
+            handleRoute();
+        })
     })
 }

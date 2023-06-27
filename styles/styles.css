@@ -89,3 +89,20 @@ input[type="number"] {
 .center {
     text-align: center;
 }
+#thumbnail{
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+#thumbnail>div{
+    height: 25vh;
+    width: 33vh;
+}
+#thumbnail>div>a{
+    display: block;
+    height: 25vh;
+    width: 33vh;
+}
+/* #thumbnail>div>a>svg{
+    height: 25vh;
+    width: 33vh;
+} */
