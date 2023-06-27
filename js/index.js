@@ -3,6 +3,12 @@
  * @returns {undefined} aucun retour
  */
 function init() {
+  document
+    .querySelector("#theme-swith")
+    .addEventListener("change", function (evt) {
+        changeTheme(evt.target.checked)
+    });
+
   var currentDate = new Date();
   console.log(currentDate.toISOString());
   var footer = document.getElementsByTagName("footer")[0];
@@ -20,16 +26,19 @@ function init() {
 function changeTheme(isDark) {
   var nav = document.getElementsByTagName("nav")[0];
   var slider = document.getElementById("theme-swith");
+  var lbl = document.querySelector("#theme label");
   if (isDark) {
     document.body.className = "dark";
     nav.classList.replace("navbar-light", "navbar-dark");
     nav.classList.replace("bg-light", "bg-dark");
     slider.checked = true;
+    lbl.innerHTML = "dark";
   } else {
     document.body.className = "";
     nav.classList.replace("navbar-dark", "navbar-light");
     nav.classList.replace("bg-dark", "bg-light");
     slider.checked = false;
+    lbl.innerHTML = "clear";
   }
 }
 document.addEventListener("DOMContentLoaded", function (evt) {
