@@ -8,5 +8,7 @@ function init() {
     var footer=document.getElementsByTagName('footer')[0];
     footer.innerHTML=currentDate.toISOString();
 }
-
-init();
+document.addEventListener('DOMContentLoaded',function(evt){
+    console.log(evt);
+    init();
+})
