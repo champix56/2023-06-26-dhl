@@ -1,4 +1,5 @@
 import { initMemeEditor } from "./memeform.js";
+import { initTumbnail } from "./thumbnail.js";
 const errorTemplateText =
   '\
 <style>\
@@ -24,7 +25,7 @@ const routesConfig = {
       path: "/thumb",
       // htmlTemplateUrl: "/vues/thumbnail.html",
       templateText: '<div id="thumbnail">thumbnail</div>',
-      //initFunction: initMemeEditor,
+      initFunction: initTumbnail,
     },
     {
       name: "breakRoute",
