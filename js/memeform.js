@@ -1,7 +1,9 @@
-var currentMeme = new Meme();
+import Meme from "./Meme.js";
+import { images } from "./values.js";
+let currentMeme = new Meme();
 //console.log(currentMeme);
-function initMemeEditor() {
-  var form = document.forms["meme-form"];
+export function initMemeEditor() {
+  let form = document.forms["meme-form"];
   form["titre"].addEventListener("input", function (evt) {
     currentMeme.titre = evt.target.value;
     // renderMeme();
@@ -32,6 +34,7 @@ function initMemeEditor() {
   });
   form["fontWeight"].addEventListener("input", function (evt) {
     currentMeme.fontWeight = evt.target.value;
+    loadSelectImages();
     renderMeme();
   });
   form["underline"].addEventListener("input", function (evt) {
@@ -43,13 +46,14 @@ function initMemeEditor() {
     renderMeme();
   });
   initFormValueFromCurrent();
+  loadSelectImages(images);
   renderMeme();
 }
 /**
  * init values form current meme to form
  */
 function initFormValueFromCurrent() {
-  var form = document.forms["meme-form"];
+  let form = document.forms["meme-form"];
   form["titre"].value = currentMeme.titre;
   form["imageId"].value = currentMeme.imageId;
   form["text"].value = currentMeme.titre;
@@ -65,10 +69,10 @@ function renderMeme(meme) {
   if (undefined === meme) {
     meme = currentMeme;
   }
-  var svg = document.querySelector("#editor-viewer svg");
-  var textElement = svg.querySelector("text");
-  var imgElement = svg.querySelector("image");
-  var img = images.find(function (img) {
+  let svg = document.querySelector("#editor-viewer svg");
+  let textElement = svg.querySelector("text");
+  let imgElement = svg.querySelector("image");
+  let img = images.find(function (img) {
     return img.id === meme.imageId;
   });
   if (undefined !== img) {
@@ -85,20 +89,20 @@ function renderMeme(meme) {
   textElement.setAttribute("y", meme.y);
 }
 function loadSelectImages(images) {
-  var select = document.forms["meme-form"]["imageId"];
+  let select = document.forms["meme-form"]["imageId"];
   //vidange du select
-  var children0 = select.children[0].cloneNode(true);
+  let children0 = select.children[0].cloneNode(true);
   select.innerHTML = "";
 
-  var optBase = document.createElement("option");
+  let optBase = document.createElement("option");
   optBase.value = "erty";
   optBase.innerHTML = "text visuel";
   select.appendChild(optBase);
-  // for(var i=0;i<images.length;i++){
+  // for(let i=0;i<images.length;i++){
   //     console.log(images[i]);
   // }
   images.forEach(function (img) {
-    var opt = optBase.cloneNode(true);
+    let opt = optBase.cloneNode(true);
     opt.value = img.id;
     opt.innerHTML = img.titre;
     select.appendChild(opt);
