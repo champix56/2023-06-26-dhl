@@ -1,19 +1,18 @@
-import { initMemeEditor } from './memeform.js'
-import handleRoute, { initNavbarLink } from './router.js';
+import { initMemeEditor } from "./memeform.js";
+import handleRoute, { initNavbarLink } from "./router.js";
 /**
  * fonction d'initialisation
  * @returns {undefined} aucun retour
  */
 function init() {
-
   document
     .querySelector("#theme-swith")
     .addEventListener("change", function (evt) {
-        changeTheme(evt.target.checked)
+      changeTheme(evt.target.checked);
     });
 
-    handleRoute();
-    initNavbarLink('nav')
+  handleRoute();
+  initNavbarLink("nav");
 
   var currentDate = new Date();
   console.log(currentDate.toISOString());
