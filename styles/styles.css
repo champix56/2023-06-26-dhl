@@ -1,4 +1,8 @@
 /*Section du header name*/
+header{
+    display: flex;
+    padding-bottom: 5px;
+}
 #header-name{
     color: tomato;
     font-weight: 900;
@@ -6,6 +10,7 @@
     text-shadow: 10px 20px 25px grey;
     text-decoration: underline grey;
     padding-left : 10px;
+    flex-grow: 1;
 }
 #dot{
     color: black;
