@@ -9,8 +9,9 @@ const routesConfig = {
     },
     {
         name: "Thumbnail",path: "/thumb",
-        htmlTemplateUrl: "/vues/thumbnail.html",
-        initFunction: initMemeEditor,
+        // htmlTemplateUrl: "/vues/thumbnail.html",
+        templateText:'<div id="thumbnail">thumbnail</div>',
+        //initFunction: initMemeEditor,
     },
     
     {
@@ -66,18 +67,13 @@ const routeTemplateLoader=(routeFound, callback)=>{
         })
     }
 }
-/**
- * load fallbackRouteTemplate
- * @param {FallbackRoute} error route content
- * @param {number} errorCode code erreur http
- */
-const handleRouteError=(route,errorCode)=>{
-
-}
 const handleNormalRoute=(route)=>{
     const article=document.querySelector('article');
     article.innerHTML=route.templateText;
-    route.initFunction();
+    if(undefined!==route.initFunction && typeof route.initFunction==='function')route.initFunction();
 }
-
+const handleErrorRoute=(route,statusCode)=>{
+    handleNormalRoute(route);
+    document.querySelector('#error h2').innerHTML=statusCode;
+}
 export default handleRoute
