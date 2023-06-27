@@ -92,6 +92,7 @@ input[type="number"] {
 #thumbnail{
     display: flex;
     flex-wrap: wrap-reverse;
+    align-content: space-evenly;
 }
 #thumbnail>div{
     height: 25vh;
@@ -99,10 +100,6 @@ input[type="number"] {
 }
 #thumbnail>div>a{
     display: block;
-    height: 25vh;
-    width: 33vh;
-}
-/* #thumbnail>div>a>svg{
-    height: 25vh;
-    width: 33vh;
-} */
+    height: 100%;
+    width: 100%;
+} 
