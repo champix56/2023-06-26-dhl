@@ -20,8 +20,9 @@ export class Meme {
     const svgimg=svg.querySelector('image');
     svgimg.setAttribute('xlink:href',undefined!==image?image.url:'');
     const text=svg.querySelector('text');
-    text.style.x=meme.x;
-    text.style.y=meme.y;
+    text.innerHTML=meme.text;
+    text.setAttribute('x',meme.x);
+    text.setAttribute('y',meme.y);
     text.style.fill=meme.color;
     text.style.textDecoration=meme.underline?'underline':'none';
     text.style.fontStyle=meme.italic?'italic':'normal';
