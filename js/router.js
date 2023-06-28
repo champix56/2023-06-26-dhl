@@ -1,3 +1,4 @@
+import { initHome } from "./js-views/home.js";
 /**
  * variable de config des routes
  */
@@ -9,12 +10,13 @@ const routeConfig = {
       templateUrl: "/view/thumbnail.html",
     },
     {
+      path: "/editor",
+      initialisation: undefined,
+      templateUrl: "/view/editor.html",
+    },
+    {
       path: "/",
-      initialisation: () => {
-        document.querySelector("#home button").addEventListener("click", () => {
-          alert("clické");
-        });
-      },
+      initialisation: initHome,
       templateUrl: "/view/home.html",
     },
     {
@@ -29,6 +31,11 @@ class Router {
   #curentRoute;
   get currentRoute() {
     return this.#curentRoute;
+  }
+  constructor() {
+    document.addEventListener("DOMContentLoaded", (evt) => {
+      this.#initRouterLinks();
+    });
   }
   //set currentRoute(value){this.#curentRoute=value}
   /**
@@ -46,7 +53,10 @@ class Router {
    * navigate to
    * @param {string} pathName chemin commencant par /
    */
-  changeRoute(pathName) {}
+  changeRoute(pathName) {
+    history.pushState(undefined, undefined, pathName);
+    this.handleRoute();
+  }
   /**
    * initialise le contenu de templateText si non present
    * et declenche le chargement DOM du contenu
@@ -58,8 +68,8 @@ class Router {
       fetch(this.#curentRoute.templateUrl)
         .then((resp) => resp.text())
         .then((t) => {
-            this.#curentRoute.templateText=t;
-            this.#loadCurrentDOMContent();
+          this.#curentRoute.templateText = t;
+          this.#loadCurrentDOMContent();
         });
     }
   }
@@ -73,6 +83,14 @@ class Router {
     if (undefined !== this.#curentRoute.initialisation) {
       this.#curentRoute.initialisation();
     }
+  }
+  #initRouterLinks(baseSelector = "body") {
+    const links = document.querySelectorAll(baseSelector + " a");
+    links.forEach((link) => {
+      link.addEventListener("click", (evt) => {
+        evt.preventDefault();
+      });
+    });
   }
 }
 /**
