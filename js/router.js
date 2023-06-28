@@ -10,6 +10,11 @@ const routeConfig = {
     },
     {
       path: "/",
+      initialisation: () => {
+        document.querySelector("#home button").addEventListener("click", () => {
+          alert("clické");
+        });
+      },
       templateUrl: "/view/home.html",
       templateText:
         '\
@@ -54,6 +59,9 @@ class Router {
   #loadCurrentDOMContent(domContainerSelector = "article") {
     document.querySelector(domContainerSelector).innerHTML =
       this.#curentRoute.templateText;
+      if(undefined!==this.#curentRoute.initialisation){
+        this.#curentRoute.initialisation()
+      }
   }
 }
 export const router = new Router();
