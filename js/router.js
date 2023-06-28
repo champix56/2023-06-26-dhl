@@ -1,5 +1,6 @@
 import { initEditor } from "./js-views/editor.js";
 import { initHome } from "./js-views/home.js";
+import { initThumbnail } from "./js-views/thumbnail.js";
 /**
  * variable de config des routes
  */
@@ -7,7 +8,7 @@ const routeConfig = {
   routes: [
     {
       path: "/thumbnail",
-      initialisation: undefined,
+      initialisation: initThumbnail,
       templateUrl: "/view/thumbnail.html",
     },
     {
@@ -51,7 +52,7 @@ class Router {
     this.#curentRoute = routeConfig.routes.find((route) => {
       if (route.path instanceof RegExp) {
         const m = route.path.exec(pathName);
-        if (m !== undefined) {
+        if (m !== null) {
           this.#params = m.groups;
           return true;
         } else return false;
@@ -106,7 +107,7 @@ class Router {
   }
   #handleLinkEvent = (evt) => {
     evt.preventDefault();
-    this.changeRoute(evt.target.href);
+    this.changeRoute(evt.currentTarget.href);
   };
 }
 /**
