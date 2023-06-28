@@ -16,11 +16,6 @@ const routeConfig = {
         });
       },
       templateUrl: "/view/home.html",
-      templateText:
-        '<div id="home">\
-            <h2>Bienvenue sur le createur de meme</h2>\
-            pour creer u nnouveau meme cliquez ici -><button class="btn btn-primary">Nouveau meme</button>\
-        </div>',
     },
     {
       path: "/break",
@@ -45,13 +40,29 @@ class Router {
     this.#curentRoute = routeConfig.routes.find(
       (route) => route.path === pathName
     );
-    this.#loadCurrentDOMContent();
+    this.#instanciateCurrentRouteTemplate();
   }
   /**
    * navigate to
    * @param {string} pathName chemin commencant par /
    */
   changeRoute(pathName) {}
+  /**
+   * initialise le contenu de templateText si non present
+   * et declenche le chargement DOM du contenu
+   */
+  #instanciateCurrentRouteTemplate() {
+    if (undefined !== this.#curentRoute.templateText) {
+      this.#loadCurrentDOMContent();
+    } else {
+      fetch(this.#curentRoute.templateUrl)
+        .then((resp) => resp.text())
+        .then((t) => {
+            this.#curentRoute.templateText=t;
+            this.#loadCurrentDOMContent();
+        });
+    }
+  }
   /**
    * chargement du contenu text/html de la vue dans le noeuds du selecteur en parametre
    * @param {string} domContainerSelector css selecteur du noeud a charger pour la vue
