@@ -18,9 +18,9 @@ export const initEditor = () => {
 };
 const initCurrentMemeByRouteParam=()=>{
     const paramId=router.params.id
-    if(undefined!==paramId){
+   // if(undefined!==paramId){
         setCurrentMeme(ressources.memes.find(m=>m.id===Number(paramId)))
-    }
+   // }
 }
 const initFormEvent = () => {
   var form = document.forms["meme-form"];
