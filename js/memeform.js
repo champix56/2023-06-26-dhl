@@ -50,12 +50,17 @@ function renderMeme(meme) {
     meme = currentMeme;
   }
   var svg = document.querySelector("#editor-viewer svg");
-  var textElement = svg.querySelector("text");
-  var imgElement = svg.querySelector("image");
   var img = images.find(function (img) {
     return img.id === meme.imageId;
   });
-  imgElement.setAttribute("xlink:href", undefined!==img? img.url:"");
+  svg.setAttribute(
+    "viewBox",
+    `0 0 ${undefined !== img ? img.w : 500} ${undefined !== img ? img.h : 500}`
+  );
+  var textElement = svg.querySelector("text");
+  var imgElement = svg.querySelector("image");
+
+  imgElement.setAttribute("xlink:href", undefined !== img ? img.url : "");
 
   textElement.innerHTML = meme.text;
   textElement.style.fill = meme.color;
