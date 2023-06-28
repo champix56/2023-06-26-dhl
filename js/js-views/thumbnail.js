@@ -20,6 +20,6 @@ const initMemeListThumbnail=()=>{
         clonedMemeDiv.querySelector('a').href='/editor/'+m.id
         clonedMemeDiv.querySelector('a>div').innerHTML=m.titre;
         listThumbnailContainer.appendChild(clonedMemeDiv);
-        Meme.render(m,'#'+clonedMemeDiv.id,ressources.images.find(im=>im.id===m.imageId));
+        Meme.render(m,'#'+clonedMemeDiv.id+' svg',ressources.images.find(im=>im.id===m.imageId));
     })
 }
