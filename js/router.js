@@ -10,7 +10,6 @@ const routeConfig = {
     },
     {
       path: "/",
-      initialisation: undefined,
       templateUrl: "/view/home.html",
     },
     {
@@ -23,12 +22,19 @@ const routeConfig = {
 
 class Router {
   #curentRoute;
+  get currentRoute() {
+    return this.#curentRoute;
+  }
+  //set currentRoute(value){this.#curentRoute=value}
   /**
    * manage la route en cours
    */
   handleRoute() {
     const pathName = location.pathname;
     console.log(pathName);
+    this.#curentRoute = routeConfig.routes.find(
+      (route) => route.path === pathName
+    );
   }
   /**
    * navigate to
@@ -36,6 +42,4 @@ class Router {
    */
   changeRoute(pathName) {}
 }
-const router = new Router();
-router.handleRoute();
-router.changeRoute();
+export const router = new Router();
