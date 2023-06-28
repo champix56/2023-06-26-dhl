@@ -1,3 +1,4 @@
+import { router } from "../router.js";
 import { Meme } from "../metier/Meme.js";
 import { ressources } from "../metier/Ressources.js";
 const svgViewerSelector = "#editor-viewer svg";
@@ -7,14 +8,20 @@ export const initEditor = () => {
   initFormEvent();
   if (ressources.isLoaded) {
     reloadImageSelect();
-    setCurrentMeme(new Meme());
+    initCurrentMemeByRouteParam()
   } else {
     ressources.loadRessources(() => {
       reloadImageSelect();
-      setCurrentMeme(new Meme());
+      initCurrentMemeByRouteParam()
     });
   }
 };
+const initCurrentMemeByRouteParam=()=>{
+    const paramId=router.params.id
+    if(undefined!==paramId){
+        setCurrentMeme(ressources.memes.find(m=>m.id===Number(paramId)))
+    }
+}
 const initFormEvent = () => {
   var form = document.forms["meme-form"];
   form["titre"].addEventListener("input", function (evt) {
@@ -88,7 +95,7 @@ const reloadImageSelect = () => {
         select.appendChild(optCloned)
     })
 };
-export const setCurrentMeme = (meme) => {
+export const setCurrentMeme = (meme=new Meme()) => {
   currentMeme = meme;
   currentImage = ressources.images.find(
     (img) => img.id === currentMeme.imageId
