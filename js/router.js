@@ -40,6 +40,12 @@ class Router {
     document.addEventListener("DOMContentLoaded", (evt) => {
       this.#initRouterLinks();
     });
+    window.addEventListener('pushstate',(evt)=>{
+      this.handleRoute()
+    })
+    window.addEventListener('popstate',(evt)=>{
+      this.handleRoute()
+    })
   }
   //set currentRoute(value){this.#curentRoute=value}
   /**
