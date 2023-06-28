@@ -7,8 +7,8 @@ export class Ressources{
     get images(){return this.#images}
     get isLoaded(){return this.#isLoaded}
     loadRessources(callback){
-        const pri=fetch(`${REST_ADR}${ressourcesPaths.images}`).then(rsp=>Response.json())
-        const prm=fetch(`${REST_ADR}${ressourcesPaths.memes}`).then(rsp=>Response.json())
+        const pri=fetch(`${REST_ADR}${ressourcesPaths.images}`).then(rsp=>rsp.json())
+        const prm=fetch(`${REST_ADR}${ressourcesPaths.memes}`).then(rsp=>rsp.json())
         Promise.all([pri,prm]).then(arr=>{
             this.#images.splice(0);
             this.#images.push(...arr[0]);
