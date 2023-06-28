@@ -17,10 +17,10 @@ const routeConfig = {
       },
       templateUrl: "/view/home.html",
       templateText:
-        '\
-      <div id="home">\
-        <button>benjamin</button>\
-      </div>',
+        '<div id="home">\
+            <h2>Bienvenue sur le createur de meme</h2>\
+            pour creer u nnouveau meme cliquez ici -><button class="btn btn-primary">Nouveau meme</button>\
+        </div>',
     },
     {
       path: "/break",
@@ -59,9 +59,9 @@ class Router {
   #loadCurrentDOMContent(domContainerSelector = "article") {
     document.querySelector(domContainerSelector).innerHTML =
       this.#curentRoute.templateText;
-      if(undefined!==this.#curentRoute.initialisation){
-        this.#curentRoute.initialisation()
-      }
+    if (undefined !== this.#curentRoute.initialisation) {
+      this.#curentRoute.initialisation();
+    }
   }
 }
 export const router = new Router();
