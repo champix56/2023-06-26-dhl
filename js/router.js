@@ -80,6 +80,7 @@ class Router {
   #loadCurrentDOMContent(domContainerSelector = "article") {
     document.querySelector(domContainerSelector).innerHTML =
       this.#curentRoute.templateText;
+    this.#initRouterLinks(domContainerSelector);
     if (undefined !== this.#curentRoute.initialisation) {
       this.#curentRoute.initialisation();
     }
@@ -87,10 +88,13 @@ class Router {
   #initRouterLinks(baseSelector = "body") {
     const links = document.querySelectorAll(baseSelector + " a");
     links.forEach((link) => {
-      link.addEventListener("click", (evt) => {
-        evt.preventDefault();
-      });
+      link.removeEventListener("click", this.#handleLinkEvent);
+      link.addEventListener("click", this.#handleLinkEvent);
     });
+  }
+  #handleLinkEvent=(evt)=> {
+    evt.preventDefault();
+    this.changeRoute(evt.target.href);
   }
 }
 /**
