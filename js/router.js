@@ -64,4 +64,7 @@ class Router {
     }
   }
 }
+/**
+ * shared router instance for navigation in app
+ */
 export const router = new Router();
