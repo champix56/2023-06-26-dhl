@@ -11,7 +11,7 @@ const routeConfig = {
       templateUrl: "/view/thumbnail.html",
     },
     {
-      path: "/editor",
+      path: /\/editor(\/(?<id>\d+))?/,
       initialisation: initEditor,
       templateUrl: "/view/editor.html",
     },
@@ -30,6 +30,8 @@ const routeConfig = {
 
 class Router {
   #curentRoute;
+  #params = {};
+  get params(){return this.#params;}
   get currentRoute() {
     return this.#curentRoute;
   }
@@ -45,9 +47,18 @@ class Router {
   handleRoute() {
     const pathName = location.pathname;
     console.log(pathName);
-    this.#curentRoute = routeConfig.routes.find(
-      (route) => route.path === pathName
-    );
+    this.#params = {};
+    this.#curentRoute = routeConfig.routes.find((route) => {
+      if (route.path instanceof RegExp) {
+        const m = route.path.exec(pathName);
+        if (m !== undefined) {
+          this.#params = m.groups;
+          return true;
+        } else return false;
+      } else {
+        return route.path === pathName;
+      }
+    });
     this.#instanciateCurrentRouteTemplate();
   }
   /**
@@ -93,10 +104,10 @@ class Router {
       link.addEventListener("click", this.#handleLinkEvent);
     });
   }
-  #handleLinkEvent=(evt)=> {
+  #handleLinkEvent = (evt) => {
     evt.preventDefault();
     this.changeRoute(evt.target.href);
-  }
+  };
 }
 /**
  * shared router instance for navigation in app
