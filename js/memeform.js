@@ -43,6 +43,7 @@ function initMemeEditor() {
     currentMeme.italic = evt.target.checked;
     renderMeme();
   });
+  loadSelectImages(images);
 }
 function renderMeme(meme) {
   if (undefined === meme) {
@@ -51,9 +52,10 @@ function renderMeme(meme) {
   var svg = document.querySelector("#editor-viewer svg");
   var textElement = svg.querySelector("text");
   var imgElement = svg.querySelector("image");
-  var img=images.find(function(img){return img.id===meme.imageId})
-  ;
-  imgElement.setAttribute("xlink:href", img.url);
+  var img = images.find(function (img) {
+    return img.id === meme.imageId;
+  });
+  imgElement.setAttribute("xlink:href", undefined!==img? img.url:"");
 
   textElement.innerHTML = meme.text;
   textElement.style.fill = meme.color;
