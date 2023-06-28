@@ -1,6 +1,9 @@
+
+import { Meme } from "./Meme.js";
+import { images } from "./values.js";
 var currentMeme = new Meme();
 //console.log(currentMeme);
-function initMemeEditor() {
+export function initMemeEditor() {
   var form = document.forms["meme-form"];
   form["titre"].addEventListener("input", function (evt) {
     currentMeme.titre = evt.target.value;

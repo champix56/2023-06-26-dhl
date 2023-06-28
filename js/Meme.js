@@ -1,4 +1,4 @@
-function Meme() {
+export function Meme() {
     this.titre='';
     this.text='';
     this.x=0;
