@@ -12,7 +12,7 @@ export class Meme {
   italic = false;
   color = "#000000";
   save(callback) {
-    fetch(REST_ADR + RESSOUORCE_PATH, {
+    fetch(REST_ADR + RESSOUORCE_PATH.memes, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
