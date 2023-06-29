@@ -1,4 +1,4 @@
-import REST_ADR, { RESSOUORCE_PATH } from "../constantes";
+import REST_ADR, { RESSOUORCE_PATH } from "../constantes.js";
 
 export class Meme {
   titre = "";
