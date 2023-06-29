@@ -1,5 +1,6 @@
 import { Meme } from "../metier/Meme.js";
 import { ressources } from "../metier/Ressources.js";
+import { router } from "../router.js";
 let currentMeme;
 let currentImage;
 const VIEW_EDITOR_CSS_SELECTOR = "#editor";
@@ -17,6 +18,13 @@ export const initEditor = () => {
 };
 const initFormEvent = () => {
   var form = document.forms["meme-form"];
+  form.addEventListener('submit',(evt)=>{
+    evt.preventDefault();
+    currentMeme.save((memeSaved=>{
+      ressources.memes.push(memeSaved);
+      router.changeRoute('/thumbnail');
+    }));
+  })
   form["titre"].addEventListener("input", function (evt) {
     currentMeme.titre = evt.target.value;
     //  Meme.render(currentMeme,VIEW_EDITOR_CSS_SELECTOR,currentImage);
