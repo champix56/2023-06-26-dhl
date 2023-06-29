@@ -5,26 +5,42 @@ let currentMeme;
 let currentImage;
 const VIEW_EDITOR_CSS_SELECTOR = "#editor";
 export const initEditor = () => {
+  console.log(router.params);
   initFormEvent();
   if (ressources.isLoaded) {
     initSelectImages();
-    setCurrentMeme(new Meme());
+    setCurrentMeme();
+    if (undefined !== router.params.id) {
+      currentMeme = ressources.meme.find(
+        (m) => m.id === Number(router.params.id)
+      );
+    } else {
+      currentMeme = new Meme();
+    }
   } else {
     ressources.loadRessources((res) => {
       initSelectImages();
-      setCurrentMeme(new Meme());
+   
+      if (undefined !== router.params.id) {
+        currentMeme = ressources.meme.find(
+          (m) => m.id === Number(router.params.id)
+        );
+      } else {
+        currentMeme = new Meme();
+      }   
+      setCurrentMeme();
     });
   }
 };
 const initFormEvent = () => {
   var form = document.forms["meme-form"];
-  form.addEventListener('submit',(evt)=>{
+  form.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    currentMeme.save((memeSaved=>{
+    currentMeme.save((memeSaved) => {
       ressources.memes.push(memeSaved);
-      router.changeRoute('/thumbnail');
-    }));
-  })
+      router.changeRoute("/thumbnail");
+    });
+  });
   form["titre"].addEventListener("input", function (evt) {
     currentMeme.titre = evt.target.value;
     //  Meme.render(currentMeme,VIEW_EDITOR_CSS_SELECTOR,currentImage);
@@ -83,7 +99,7 @@ const initFormValues = () => {
   form["underline"].checked = currentMeme.underline;
   form["italic"].checked = currentMeme.italic;
 };
-const setCurrentMeme = (meme) => {
+const setCurrentMeme = (meme = currentMeme) => {
   currentMeme = meme;
   initFormValues();
   const img = ressources.images.find((im) => im.id === meme.imageId);
