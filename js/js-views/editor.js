@@ -64,16 +64,16 @@ const initFormEvent = () => {
 };
 const initFormValues = () => {
   const form = document.forms["meme-form"];
-  form["titre"].value = current.titre;
-  form["text"].value = current.text;
-  form["x"].value = current.x;
-  form["y"].value = current.y;
-  form["imageId"].value = current.imageId;
-  form["fontSize"].value = current.fontSize;
-  form["fontWeight"].value = current.fontWeight;
-  form["color"].value = current.color;
-  form["underline"].checked = current.underline;
-  form["italic"].checked = current.italic;
+  form["titre"].value = currentMeme.titre;
+  form["text"].value = currentMeme.text;
+  form["x"].value = currentMeme.x;
+  form["y"].value = currentMeme.y;
+  form["imageId"].value = currentMeme.imageId;
+  form["fontSize"].value = currentMeme.fontSize;
+  form["fontWeight"].value = currentMeme.fontWeight;
+  form["color"].value = currentMeme.color;
+  form["underline"].checked = currentMeme.underline;
+  form["italic"].checked = currentMeme.italic;
 };
 const setCurrentMeme = (meme) => {
   currentMeme = meme;
